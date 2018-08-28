@@ -4,6 +4,7 @@ var compScore = 10;
 var losses = 0;
 var guessed = [];
 var winner;
+var letter;
 
 
 var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
@@ -18,14 +19,15 @@ function reset() {
 document.onkeyup = function (event) {
 
     console.log("user played " + event.key + " computer played " + computerGuess);
-    guessed.push(event.key);
-    if (event.key === computerGuess) {
+    letter = event.key.toLowerCase();
+    guessed.push(letter);
+    if (letter === computerGuess) {
         document.getElementById("winner").innerHTML = "YOU WIN!";
         userScore++;
         reset();
     }
 
-    else if (event.key !== computerGuess) {
+    else if (letter !== computerGuess) {
 
         compScore--;
         if (compScore < 1) {

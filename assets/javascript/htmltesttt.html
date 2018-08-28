@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Psychic Game!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="assets/javascript/game.js"></script>
+</head>
+<body>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-4">
+
+
+            <h1>Psychic Game!</h1>
+            <br>
+            <br>
+            <h2>Press a key to guess!</h2>
+            <br>
+            <br>
+            <h3>Scoreboard</h3>
+            <br>
+            <h4>
+                Number of Wins: <p id="userscore"></p>
+            </h4>
+            <br>
+            <h4>
+                Number of Losses: <p id="losses"></p>
+            </h4>
+        </div>
+        <div class="col-md-6">
+            <br>
+            <h4>Guesses Remaining: <p id="compscore"></p></h4>
+            <br>
+            <h3>Previous Guesses<p id="guessed"></p></h3>
+            <br>
+            <h2><p id="winner"></p></h2>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+    var userScore = 0;
+    var compScore = 10;
+    var losses = 0;
+    var guessed = [];
+    var winner;
+    var letter;
+
+
+    var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+    function reset() {
+
+        compScore = 10;
+        guessed = [];
+        computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+    }
+
+    document.onkeyup = function (event) {
+
+        console.log("user played " + event.key + " computer played " + computerGuess);
+        letter = event.key.toLowerCase();
+        guessed.push(letter);
+        if (letter === computerGuess) {
+            document.getElementById("winner").innerHTML = "YOU WIN!";
+            userScore++;
+            reset();
+        }
+
+        else if (letter !== computerGuess) {
+
+            compScore--;
+            if (compScore < 1) {
+                console.log("LOSER");
+                document.getElementById("winner").innerHTML = "LOSER! Keep Trying!";
+                losses++;
+                reset();
+            }
+            else {
+                document.getElementById("winner").innerHTML = "Oh, so you're trying again, huh?";
+            }
+        }
+
+
+        document.getElementById("userscore").innerHTML = userScore;
+        document.getElementById("compscore").innerHTML = compScore;
+        document.getElementById("guessed").innerHTML = guessed;
+        document.getElementById("losses").innerHTML = losses;
+
+    };
+
+
+</script>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+</body>
+</html>
